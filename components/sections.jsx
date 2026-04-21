@@ -58,29 +58,76 @@ function NavArtboard({ theme }) {
       { id: 'help', label: 'Docs', icon: <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><path d="M6.5 6a1.5 1.5 0 113 0c0 1-1.5 1-1.5 2.5M8 11v.01"/></svg> },
     ]},
   ];
+  const activeItem = sideGroups.flatMap(g => g.items).find(i => i.id === side);
+
   return secSurface(theme, (
     <>
       <SectionHead title="Navigation" sub="top navbar · sidebar" />
-      <div style={{ border: '1px solid var(--kui-border)', borderRadius: 9, overflow: 'hidden', marginBottom: 24 }}>
-        <KuiNavbar brand="Kev" links={['Dashboard', 'Projects', 'Reports', 'Team']} current={nav} onNavigate={setNav}
-          actions={<>
-            <KuiBtn variant="flat" circular size="sm" aria-label="Search">{KuiIcons.search}</KuiBtn>
-            <KuiBtn variant="suggested" size="sm">{KuiIcons.plus}New</KuiBtn>
-          </>}
-        />
+
+      <SecLabel>Top navbar</SecLabel>
+      <div style={{ border: '1px solid var(--kui-border)', borderRadius: 9, overflow: 'hidden', marginBottom: 24, background: 'var(--kui-surface-1)' }}>
+        <nav style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          height: 56, padding: '0 14px',
+          fontFamily: 'var(--kui-font-sans)',
+          background: 'var(--kui-surface-1)',
+          borderBottom: '1px solid var(--kui-divider)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, fontWeight: 600, color: 'var(--kui-fg)' }}>
+            <div style={{ width: 26, height: 26, borderRadius: 6, background: 'var(--kui-accent)', display: 'grid', placeItems: 'center', color: '#fff' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/></svg>
+            </div>
+            Kev
+          </div>
+          <div style={{ width: 1, height: 18, background: 'var(--kui-divider)', margin: '0 6px' }} />
+          <div style={{ display: 'flex', gap: 2 }}>
+            {['Dashboard', 'Projects', 'Reports', 'Team'].map(l => (
+              <button key={l} onClick={() => setNav(l)} aria-current={nav === l ? 'page' : undefined}
+                style={{
+                  padding: '7px 12px', fontSize: 13, fontWeight: 500,
+                  color: nav === l ? 'var(--kui-fg)' : 'var(--kui-fg-muted)',
+                  background: nav === l ? 'var(--kui-surface-3)' : 'transparent',
+                  border: 'none', borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit',
+                }}>{l}</button>
+            ))}
+          </div>
+          <div style={{ flex: 1 }} />
+          <KuiBtn variant="flat" circular size="sm" aria-label="Search">{KuiIcons.search}</KuiBtn>
+          <KuiBtn variant="flat" circular size="sm" aria-label="Notifications">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 7a4 4 0 018 0v3l1.5 2h-11L4 10V7z"/><path d="M6.5 13a1.5 1.5 0 003 0"/></svg>
+          </KuiBtn>
+          <KuiBtn variant="suggested" size="sm">{KuiIcons.plus}New</KuiBtn>
+          <div style={{ width: 28, height: 28, borderRadius: 14, background: 'linear-gradient(135deg, var(--kui-accent), var(--kui-success))', marginLeft: 4, flexShrink: 0 }} />
+        </nav>
+        <div style={{ padding: '14px 16px', fontSize: 12, color: 'var(--kui-fg-subtle)', fontFamily: 'var(--kui-font-mono)' }}>
+          → section: <span style={{ color: 'var(--kui-accent)' }}>{nav}</span>
+        </div>
       </div>
 
-      <SecLabel>Sidebar</SecLabel>
+      <SecLabel>Sidebar navigation</SecLabel>
       <div style={{
         border: '1px solid var(--kui-border)', borderRadius: 9, overflow: 'hidden',
-        height: 320, display: 'flex', background: 'var(--kui-bg)',
+        height: 340, display: 'flex', background: 'var(--kui-bg)',
       }}>
         <KuiSidebar groups={sideGroups} current={side} onNavigate={setSide} />
-        <div style={{ flex: 1, padding: 20, fontSize: 13, color: 'var(--kui-fg-muted)' }}>
-          <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--kui-fg)', marginBottom: 6 }}>
-            {sideGroups.flatMap(g => g.items).find(i => i.id === side)?.label}
+        <div style={{ flex: 1, padding: 20, minWidth: 0 }}>
+          <div style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--kui-fg-subtle)', marginBottom: 8, fontFamily: 'var(--kui-font-mono)' }}>
+            Workspace / {activeItem?.label}
           </div>
-          Content area for the selected section.
+          <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--kui-fg)', marginBottom: 10 }}>
+            {activeItem?.label}
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--kui-fg-muted)', lineHeight: 1.55 }}>
+            {side === 'overview' && 'Summary of workspace activity, latest deploys, and team presence.'}
+            {side === 'jobs' && '12 jobs queued · 3 running · nightly-build in progress.'}
+            {side === 'data' && 'Connected datasets, schemas, and last refresh times.'}
+            {side === 'settings' && 'Workspace preferences, API keys, and integrations.'}
+            {side === 'help' && 'Guides, API reference, and release notes.'}
+          </div>
+          <div style={{ marginTop: 14, display: 'flex', gap: 8 }}>
+            <KuiBtn variant="default" size="sm">{KuiIcons.arrowR}Open</KuiBtn>
+            <KuiBtn variant="flat" size="sm">Details</KuiBtn>
+          </div>
         </div>
       </div>
     </>
