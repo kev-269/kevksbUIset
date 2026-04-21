@@ -38,6 +38,4 @@ Switch themes by setting `data-theme="dark"` on any parent element.
 
 Primary accent is Adwaita blue (`#3584e4`). All colors, radii, spacing, and type scale are defined as CSS custom properties in `components/tokens.jsx` — override any of them to re-theme.
 
-## License
 
-MIT
