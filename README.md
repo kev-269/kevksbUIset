@@ -24,39 +24,13 @@ Open **`index.html`** for the landing + showcase, or **`Kev-UI-canvas.html`** fo
 | **Motion** | Blueprint reveal · Flight route loader · Radar HUD · Paper airplane |
 | **Misc** | Carousel · Slider |
 
-## Running locally
 
-Because files load via `<script src="components/...">`, you need a local server (not `file://`):
 
-```bash
-# Python (mac/linux, or Windows with Python installed)
-python3 -m http.server 8000
-
-# or Node
-npx serve .
-```
-
-Then open [http://localhost:8000](http://localhost:8000).
-
-**VS Code users:** install the *Live Server* extension, right-click `index.html` → *Open with Live Server*.
 
 ## Using components in your own project
 
-Every component lives in its own `.jsx` file under `components/`. Copy what you need. All components read from CSS variables defined in `components/tokens.jsx` — drop that file in first and the rest will inherit the theme.
-
-```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
-
-<script type="text/babel" src="components/tokens.jsx"></script>
-<script type="text/babel" src="components/button.jsx"></script>
-
-<div data-theme="light" class="kui-scope">
-  <!-- your app, rendered via React -->
-</div>
-```
+Every component lives in its own `.jsx` file under `components/`. Copy what you need.
+All components read from CSS variables defined in `components/tokens.jsx` — drop that file in first and the rest will inherit the theme.
 
 Switch themes by setting `data-theme="dark"` on any parent element.
 
