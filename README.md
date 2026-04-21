@@ -1,12 +1,10 @@
 # My own Reusable UI elements 
 
-ALL components necessary to develop professional dashboard for data analysis please read through out the comments to learn how to use it 
-__________________________________________________________________________________________________________________________________________
+ALL components necessary to develop professional dashboard for data analysis please read through out the comments to learn how to use it .
+Here is a link to test it quickly.
+https://kev-269.github.io/kevset/
 
-                                                https://kev-269.github.io/kevset/
-                                                    LAST UPDATE april 21/2026
 
+                                            
 
   
-
-____________________________________________________________________________________________________________________________________________
