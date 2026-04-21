@@ -4,9 +4,9 @@ A GNOME/Adwaita-inspired UI component library in plain HTML + CSS + React (via B
 
 ![Kev-UI](https://img.shields.io/badge/style-adwaita-3584e4) ![Themes](https://img.shields.io/badge/themes-light%20%2B%20dark-1e1e1e) ![No-Build](https://img.shields.io/badge/build-none-26a269)
 
-## Demo
+## TEST IT out yourself
 
-Open **`index.html`** for the landing + showcase, or **`Kev-UI-canvas.html`** for the raw design canvas with every component side-by-side in light + dark.
+https://kev-269.github.io/kevset/
 
 ## What's inside
 
