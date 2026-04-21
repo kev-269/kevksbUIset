@@ -1,14 +1,20 @@
+
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Kev-UI · Component library</title>
+<title>Kev-UI · Engineering component library</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="GNOME-inspired UI component library. Engineering-focused, light + dark, zero build." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-  html, body { margin: 0; padding: 0; background: #f0eee9; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #fafafa; }
   * { box-sizing: border-box; }
+  a { color: inherit; }
+  html { scroll-behavior: smooth; }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -17,7 +23,6 @@
 <body>
 <div id="root"></div>
 
-<script type="text/babel" src="design-canvas.jsx"></script>
 <script type="text/babel" src="components/tokens.jsx"></script>
 <script type="text/babel" src="components/button.jsx"></script>
 <script type="text/babel" src="components/navigation.jsx"></script>
@@ -37,7 +42,7 @@
 <script type="text/babel" src="components/airplane.jsx"></script>
 
 <script type="text/babel">
-// Surface (theme scope wrapper used by every artboard)
+// Surface + Row — used by every artboard
 function Surface({ theme = 'light', children, pad = 24, style = {} }) {
   return (
     <div data-theme={theme} className="kui-scope"
@@ -61,7 +66,7 @@ Object.assign(window, { Surface, Row });
 </script>
 
 <script type="text/babel">
-// Foundations — colors
+// Foundations artboards (colors / type / radius / spacing)
 function Swatch({ name, cssVar, hex }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
@@ -98,8 +103,8 @@ function ColorsArtboard({ theme }) {
   ];
   return (
     <Surface theme={theme} pad={24} style={{ overflowY: 'auto' }}>
-      <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 4 }}>Color tokens</div>
-      <div style={{ fontSize: 12, color: 'var(--kui-fg-muted)', marginBottom: 16, fontFamily: 'var(--kui-font-mono)' }}>{theme} mode</div>
+      <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 4 }}>Color tokens</div>
+      <div style={{ fontSize: 11, color: 'var(--kui-fg-muted)', marginBottom: 16, fontFamily: 'var(--kui-font-mono)' }}>{theme} mode</div>
       <div style={{ columnCount: 2, columnGap: 20 }}>
         {groups.map(g => (
           <div key={g.head} style={{ breakInside: 'avoid', marginBottom: 12 }}>
@@ -118,12 +123,12 @@ function FoundationsArtboard({ theme }) {
   const spaces = [['1',4],['2',8],['3',12],['4',16],['5',24],['6',32]];
   return (
     <Surface theme={theme} pad={24} style={{ overflowY: 'auto' }}>
-      <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 14 }}>Foundations</div>
-      <div style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--kui-fg-subtle)', marginBottom: 10, fontFamily: 'var(--kui-font-mono)' }}>Type · Inter + JetBrains Mono</div>
+      <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 14 }}>Type · Radius · Spacing</div>
+      <div style={{ fontSize: 10, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1.2, color: 'var(--kui-fg-subtle)', marginBottom: 10, fontFamily: 'var(--kui-font-mono)' }}>Type</div>
       <div style={{ marginBottom: 18 }}>
         {types.map(([n,s,w,k]) => (
           <div key={n} style={{ display: 'flex', alignItems: 'baseline', gap: 12, padding: '4px 0', borderBottom: '1px dashed var(--kui-divider)' }}>
-            <div style={{ width: 60, fontSize: 11, color: 'var(--kui-fg-subtle)', fontFamily: 'var(--kui-font-mono)' }}>{n}</div>
+            <div style={{ width: 56, fontSize: 10, color: 'var(--kui-fg-subtle)', fontFamily: 'var(--kui-font-mono)' }}>{n}</div>
             <div style={{ fontSize: s, fontWeight: w, fontFamily: k === 'mono' ? 'var(--kui-font-mono)' : 'var(--kui-font-sans)', letterSpacing: s >= 24 ? -0.4 : 0, flex: 1 }}>The quick brown fox</div>
             <div style={{ fontSize: 10, color: 'var(--kui-fg-subtle)', fontFamily: 'var(--kui-font-mono)' }}>{s}/{w}</div>
           </div>
@@ -154,7 +159,6 @@ function FoundationsArtboard({ theme }) {
 function ButtonGalleryArtboard({ theme }) {
   return (
     <Surface theme={theme} pad={24} style={{ overflowY: 'auto' }}>
-      <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 14 }}>Button</div>
       <Row label="Suggested">
         <KuiBtn variant="suggested">Continue</KuiBtn>
         <KuiBtn variant="suggested">{KuiIcons.check}Apply</KuiBtn>
@@ -162,38 +166,15 @@ function ButtonGalleryArtboard({ theme }) {
         <KuiBtn variant="suggested" size="lg">Large</KuiBtn>
         <KuiBtn variant="suggested" disabled>Disabled</KuiBtn>
       </Row>
-      <Row label="Default">
-        <KuiBtn variant="default">Cancel</KuiBtn>
-        <KuiBtn variant="default">{KuiIcons.download}Download</KuiBtn>
-        <KuiBtn variant="default" size="sm">Small</KuiBtn>
-        <KuiBtn variant="default" size="lg">Large</KuiBtn>
-      </Row>
-      <Row label="Destructive">
-        <KuiBtn variant="destructive">Delete</KuiBtn>
-        <KuiBtn variant="destructive">{KuiIcons.trash}Remove</KuiBtn>
-        <KuiBtn variant="destructive" size="sm">Small</KuiBtn>
-      </Row>
-      <Row label="Flat">
-        <KuiBtn variant="flat">Edit</KuiBtn>
-        <KuiBtn variant="flat">{KuiIcons.search}Search</KuiBtn>
-        <KuiBtn variant="flat">{KuiIcons.arrowR}Next</KuiBtn>
-      </Row>
-      <Row label="Pill">
-        <KuiBtn variant="suggested" pill>Get started</KuiBtn>
-        <KuiBtn variant="default" pill>Learn more</KuiBtn>
-      </Row>
+      <Row label="Default"><KuiBtn variant="default">Cancel</KuiBtn><KuiBtn variant="default">{KuiIcons.download}Download</KuiBtn><KuiBtn variant="default" size="sm">Small</KuiBtn><KuiBtn variant="default" size="lg">Large</KuiBtn></Row>
+      <Row label="Destructive"><KuiBtn variant="destructive">Delete</KuiBtn><KuiBtn variant="destructive">{KuiIcons.trash}Remove</KuiBtn><KuiBtn variant="destructive" size="sm">Small</KuiBtn></Row>
+      <Row label="Flat"><KuiBtn variant="flat">Edit</KuiBtn><KuiBtn variant="flat">{KuiIcons.search}Search</KuiBtn><KuiBtn variant="flat">{KuiIcons.arrowR}Next</KuiBtn></Row>
+      <Row label="Pill"><KuiBtn variant="suggested" pill>Get started</KuiBtn><KuiBtn variant="default" pill>Learn more</KuiBtn></Row>
       <Row label="Circular">
         <KuiBtn variant="default" circular>{KuiIcons.plus}</KuiBtn>
         <KuiBtn variant="flat" circular>{KuiIcons.more}</KuiBtn>
         <KuiBtn variant="suggested" circular>{KuiIcons.plus}</KuiBtn>
         <KuiBtn variant="destructive" circular>{KuiIcons.trash}</KuiBtn>
-      </Row>
-      <Row label="Button group">
-        <div style={{ display: 'flex' }}>
-          <button className="kui-btn kui-btn--default" style={{ borderRadius: '7px 0 0 7px' }}>Copy</button>
-          <button className="kui-btn kui-btn--default" style={{ borderRadius: 0, marginLeft: -1 }}>Cut</button>
-          <button className="kui-btn kui-btn--default" style={{ borderRadius: '0 7px 7px 0', marginLeft: -1 }}>Paste</button>
-        </div>
       </Row>
     </Surface>
   );
@@ -205,101 +186,14 @@ Object.assign(window, { ColorsArtboard, FoundationsArtboard, ButtonGalleryArtboa
 <script type="text/babel" src="components/sections2.jsx"></script>
 <script type="text/babel" src="components/sections3.jsx"></script>
 <script type="text/babel" src="components/sections4.jsx"></script>
+<script type="text/babel" src="components/showcase.jsx"></script>
 
 <script type="text/babel">
-function App() {
-  return (
-    <KuiToastProvider><DesignCanvas>
-      <DCSection id="topbar" title="Top bar designs" subtitle="Logo + pages + actions">
-        <DCArtboard id="tb-l" label="Top bars · Light" width={720} height={420}><TopBarArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="tb-d" label="Top bars · Dark" width={720} height={420}><TopBarArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="table" title="Data table" subtitle="Sort, select, zebra, compact">
-        <DCArtboard id="tbl-l" label="Table · Light" width={680} height={620}><TableArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="tbl-d" label="Table · Dark" width={680} height={620}><TableArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="overlays" title="Popping windows" subtitle="Dialog · drawer · toast">
-        <DCArtboard id="ov-l" label="Overlays · Light" width={560} height={620}><OverlayArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="ov-d" label="Overlays · Dark" width={560} height={620}><OverlayArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="forms" title="Forms" subtitle="Input · select · switch · radio · checkbox · dropzone">
-        <DCArtboard id="fm-l" label="Forms · Light" width={520} height={860}><FormsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="fm-d" label="Forms · Dark" width={520} height={860}><FormsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="airplane" title="Airplane · motion set" subtitle="Blueprint reveal · flight route · radar HUD · paper plane">
-        <DCArtboard id="ap-l" label="Airplane · Light" width={540} height={780}><AirplaneArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="ap-d" label="Airplane · Dark" width={540} height={780}><AirplaneArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-      <DCSection id="tokens" title="Foundations" subtitle="Color, type, radius, spacing">
-        <DCArtboard id="col-l" label="Colors · Light" width={480} height={640}><ColorsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="col-d" label="Colors · Dark" width={480} height={640}><ColorsArtboard theme="dark" /></DCArtboard>
-        <DCArtboard id="fnd-l" label="Type + Radius + Spacing · Light" width={500} height={640}><FoundationsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="fnd-d" label="Type + Radius + Spacing · Dark" width={500} height={640}><FoundationsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="button" title="Button">
-        <DCArtboard id="btn-l" label="All variants · Light" width={540} height={600}><ButtonGalleryArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="btn-d" label="All variants · Dark" width={540} height={600}><ButtonGalleryArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="nav" title="Navigation" subtitle="Top navbar & sidebar">
-        <DCArtboard id="nav-l" label="Nav · Light" width={640} height={520}><NavArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="nav-d" label="Nav · Dark" width={640} height={520}><NavArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="tabs" title="Tabs" subtitle="Animated switching">
-        <DCArtboard id="tabs-l" label="Tabs · Light" width={520} height={460}><TabsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="tabs-d" label="Tabs · Dark" width={520} height={460}><TabsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="prog" title="Progress & loading" subtitle="Bar, spinner, dots, skeleton">
-        <DCArtboard id="prg-l" label="Loading · Light" width={520} height={520}><ProgArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="prg-d" label="Loading · Dark" width={520} height={520}><ProgArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="stats" title="Stat cards · sparklines · gauges">
-        <DCArtboard id="st-l" label="Stats · Light" width={520} height={560}><StatsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="st-d" label="Stats · Dark" width={520} height={560}><StatsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="charts" title="Charts" subtitle="Bar, line + area, donut, time series">
-        <DCArtboard id="ch-l" label="Charts · Light" width={560} height={820}><ChartsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="ch-d" label="Charts · Dark" width={560} height={820}><ChartsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="cards" title="Cards & accordion">
-        <DCArtboard id="cd-l" label="Cards · Light" width={520} height={560}><CardsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="cd-d" label="Cards · Dark" width={520} height={560}><CardsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="badges" title="Badges, tags, keyboard">
-        <DCArtboard id="bd-l" label="Badges · Light" width={480} height={380}><BadgesArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="bd-d" label="Badges · Dark" width={480} height={380}><BadgesArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="carpag" title="Carousel · slider · pagination">
-        <DCArtboard id="cp-l" label="Carousel+ · Light" width={520} height={520}><CarPagArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="cp-d" label="Carousel+ · Dark" width={520} height={520}><CarPagArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="utils" title="Copy · zoom · export">
-        <DCArtboard id="ut-l" label="Utilities · Light" width={500} height={560}><UtilsArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="ut-d" label="Utilities · Dark" width={500} height={560}><UtilsArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-
-      <DCSection id="eng" title="Pipeline & engineering visuals">
-        <DCArtboard id="eg-l" label="Pipeline · Light" width={620} height={640}><EngArtboard theme="light" /></DCArtboard>
-        <DCArtboard id="eg-d" label="Pipeline · Dark" width={620} height={640}><EngArtboard theme="dark" /></DCArtboard>
-      </DCSection>
-    </DesignCanvas></KuiToastProvider>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <KuiToastProvider>
+    <KuiShowcase />
+  </KuiToastProvider>
+);
 </script>
 </body>
 </html>
