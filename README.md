@@ -1,4 +1,4 @@
-# Kev-UI
+# Kev-UI   KPI Dashboarding
 
 A GNOME/Adwaita-inspired UI component library in plain HTML + CSS + React (via Babel standalone). Engineering-focused, professional palette, light & dark mode, zero build step.
 
@@ -44,26 +44,10 @@ Then open [http://localhost:8000](http://localhost:8000).
 
 Every component lives in its own `.jsx` file under `components/`. Copy what you need. All components read from CSS variables defined in `components/tokens.jsx` — drop that file in first and the rest will inherit the theme.
 
-```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
-
-<script type="text/babel" src="components/tokens.jsx"></script>
-<script type="text/babel" src="components/button.jsx"></script>
-
-<div data-theme="light" class="kui-scope">
-  <!-- your app, rendered via React -->
-</div>
-```
-
 Switch themes by setting `data-theme="dark"` on any parent element.
 
 ## Design tokens
 
 Primary accent is Adwaita blue (`#3584e4`). All colors, radii, spacing, and type scale are defined as CSS custom properties in `components/tokens.jsx` — override any of them to re-theme.
 
-## License
 
-MIT
